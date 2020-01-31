@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Waktu pembuatan: 30 Okt 2019 pada 05.58
+-- Host: localhost
+-- Waktu pembuatan: 31 Jan 2020 pada 08.18
 -- Versi server: 5.7.24
--- Versi PHP: 7.2.11
+-- Versi PHP: 7.2.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
