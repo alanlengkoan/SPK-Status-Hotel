@@ -14,8 +14,39 @@ if (isset($_POST ['simpan'])) {
 	$kriteria = $_POST['inpidkriteria'];
 	$nilai    = $_POST['inpnilai'];
 	$hasil    = $_POST['inphasil'];
-	$hasil[]  = $_POST['inpnilai'][count($hasil)];
+	$hasil[] = $_POST['inpnilai'][count($hasil)];
 
+	// untuk nama gambar
+	$nmagambar = $_FILES['inpgambar']['name'];
+	// untuk format foto
+	$frmgambar = array('jpeg', 'jpg', 'png');
+	// untuk ukuran foto
+	$ukrgambar = 10 * 1024 * 1024;
+	// untuk mengecek gambar ada berapa
+	for ($i = 0; $i < count($nmagambar); $i++) {
+		// mengambil data file berdasarkan jumlah
+		$nmagmbr = basename($_FILES['inpgambar']['name'][$i]);
+		$tmpgmbr = $_FILES['inpgambar']['tmp_name'][$i];
+		$szegmbr = $_FILES['inpgambar']['size'][$i];
+		$errgmbr = $_FILES['inpgambar']['error'][$i];
+
+		if ($errgmbr == 0) {
+			if ($szegmbr > $ukrgambar) {
+				echo "<script>document.location.href='layout.php?content=data_hotel_tambah&validasi_ukuran';</script>";
+				return false;
+			} else if (!in_array(pathinfo($nmagmbr, PATHINFO_EXTENSION), $frmgambar)) {
+				echo "<script>document.location.href='layout.php?content=data_hotel_tambah&validasi_ektensi';</script>";
+				return false;
+			} else if (file_exists("../../fotofasilitas/".$nmagmbr)) {
+				echo "<script>document.location.href='layout.php?content=data_hotel_tambah&validasi_nama';</script>";
+				return false;
+			} else {
+				// upload gambar atau menyimpan gambar
+				move_uploaded_file($tmpgmbr, "../../fotofasilitas/".$nmagmbr);
+			}
+		}
+	}
+	
 	// membuat var array
 	$jumlahkriteria = array();
 	// untuk menghitung jumlah data
@@ -25,6 +56,7 @@ if (isset($_POST ['simpan'])) {
 			'nilai'.$i     => $nilai[$i],
 			'hasil'.$i     => empty($hasil[$i]) ? $nilai[$i] : $hasil[$i],
 			'jumlah'.$i    => isset($jumlah[$i]) ? $jumlah[$i] : 0,
+			'gambar'.$i    => isset($nmagambar[$i]) ? $nmagambar[$i] : 'none_picture.png'
 		);
 		// menggabung data menjadi array
 		array_push($jumlahkriteria, $fasarray);

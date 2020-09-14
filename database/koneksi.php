@@ -1,8 +1,8 @@
 <?php
 
 $host = 'localhost';
-$user = 'root';
-$pass = '0sampai1';
+$user = 'my_root';
+$pass = 'my_pass';
 $dbnm = 'spk_hotel';
 
 // untuk koneksi ke database

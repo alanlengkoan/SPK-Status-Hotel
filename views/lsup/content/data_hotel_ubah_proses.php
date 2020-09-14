@@ -15,62 +15,19 @@ if (isset($_POST ['ubah'])) {
 	$nilai    = $_POST['inpnilai'];
 	$hasil    = $_POST['inphasil'];
 	$hasil[] = $_POST['inpnilai'][count($hasil)];
-
-	// untuk nama gambar
-	$nmagambar  = $_FILES['inpgambar']['name'];
-	// untuk mengambil nama gambar yg tidak diubah
-	$nmagambar2 = $_POST['inpgambar'];
-	// untuk format foto
-	$frmgambar = array('jpeg', 'jpg', 'png');
-	// untuk ukuran foto
-	$ukrgambar = 10 * 1024 * 1024;
+	
 	// membuat var array
 	$jumlahkriteria = array();
-	// untuk mengecek gambar ada berapa
-	for ($i = 0; $i < count($nmagambar); $i++) {
-		// mengambil data file berdasarkan jumlah
-		$nmagmbr = basename($_FILES['inpgambar']['name'][$i]);
-		$tmpgmbr = $_FILES['inpgambar']['tmp_name'][$i];
-		$szegmbr = $_FILES['inpgambar']['size'][$i];
-		$errgmbr = $_FILES['inpgambar']['error'][$i];
-
-		if ($nmagambar[$i] == '' || $nmagambar[$i] == null) {
-			for ($i = 0; $i < count($kriteria); $i++) { 
-				$fasarray = array(
-					'fasilitas'.$i => $fasilitas[$i],
-					'nilai'.$i     => $nilai[$i],
-					'hasil'.$i     => empty($hasil[$i]) ? $nilai[$i] : $hasil[$i],
-					'jumlah'.$i    => isset($jumlah[$i]) ? $jumlah[$i] : 0,
-					'gambar'.$i    => empty($nmagambar2[$i]) ? 'none_picture.png' : $nmagambar2[$i]
-				);
-				// menggabung data menjadi array
-				array_push($jumlahkriteria, $fasarray);
-			}
-		} else {
-			if (file_exists("../../fotofasilitas/".$nmagmbr)) {
-				echo "<script>document.location.href='layout.php?content=data_hotel_ubah&id_hotel=".$idhotel."&validasi_nama';</script>";
-				return false;
-			} else {
-				// menghapus foto yg tersimpan dalam file dan akan diganti
-				unlink("../../fotofasilitas/".$nmagambar2[$i]);
-				// mengupload gambar baru
-				move_uploaded_file($tmpgmbr, "../../fotofasilitas/".$nmagmbr);
-				for ($i = 0; $i < count($kriteria); $i++) { 
-					if (isset($nmagambar[$i])) {
-						$input_gambar = $nmagambar[$i];
-					}
-					$fasarray = array(
-						'fasilitas'.$i => $fasilitas[$i],
-						'nilai'.$i     => $nilai[$i],
-						'hasil'.$i     => empty($hasil[$i]) ? $nilai[$i] : $hasil[$i],
-						'jumlah'.$i    => isset($jumlah[$i]) ? $jumlah[$i] : 0,
-						'gambar'.$i    => $input_gambar == "" ? empty($nmagambar2[$i]) ? 'none_picture.png' : $nmagambar2[$i] : $input_gambar
-					);
-					// menggabung data menjadi array
-					array_push($jumlahkriteria, $fasarray);
-				}
-			}
-		}
+	for ($i = 0; $i < count($kriteria); $i++) {
+		$fasarray = array(
+			'fasilitas' . $i => $fasilitas[$i],
+			'nilai' . $i     => $nilai[$i],
+			'hasil' . $i     => empty($hasil[$i]) ? $nilai[$i] : $hasil[$i],
+			'jumlah' . $i    => isset($jumlah[$i]) ? $jumlah[$i] : 0,
+			'gambar' . $i    => empty($nmagambar2[$i]) ? 'none_picture.png' : $nmagambar2[$i]
+		);
+		// menggabung data menjadi array
+		array_push($jumlahkriteria, $fasarray);
 	}
 
 	// mengparsing data menjadi json

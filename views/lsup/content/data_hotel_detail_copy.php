@@ -71,6 +71,7 @@ $data    = mysqli_fetch_array($query, MYSQLI_ASSOC);
 									<th>No</th>
 									<th>Fasilitas</th>
 									<th>Jumlah / Banyak</th>
+									<th>Gambar</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -82,6 +83,13 @@ $data    = mysqli_fetch_array($query, MYSQLI_ASSOC);
 										<td><?=$no++?></td>
 										<td><?=$tampil[$i]['fasilitas'.$i]?></td>
 										<td><?= empty($tampil[$i]['jumlah'.$i]) ? $tampil[$i]['hasil'.$i] : $tampil[$i]['jumlah'.$i] ?></td>
+										<td align='center'>
+											<?php if ($tampil[$i]['gambar'.$i] == 'none_picture.png') { ?>
+												<img style='width: 550px; width: 550px;' src='../../assets/images/none_picture.png' />
+											<?php } else { ?>
+												<img style='width: 550px; width: 550px;' src='../../fotofasilitas/<?=$tampil[$i]['gambar'.$i]?>' />
+											<?php } ?>
+										</td>
 									</tr>
 								<?php }?>
 							</tbody>

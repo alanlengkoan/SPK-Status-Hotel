@@ -100,7 +100,7 @@ $hasil1  = json_decode($data['fasilitas'], true);
 								<label class="col-sm-3 col-form-label"><?= $hasil1[$i]['fasilitas'.$i] ?></label>
 								<input type="hidden" name="inpidkriteria[]" value="<?= $hasil2['id_fasilitas']; ?>" readonly="readonly" />
 								<input type="hidden" name="inpfasilitas[]" value="<?= $hasil2['jenis_fasilitas']; ?>" readonly="readonly" />
-								<div class="col-sm-2">
+								<div class="col-sm-3">
 									<select name="inpnilai[]" class="form-control" required="required" id="inpnilai">
 										<option><?php echo $hasil1[$i]['nilai'.$i]; ?></option>
 										<?php foreach ($tampil as $key => $value) { ?>
@@ -108,23 +108,12 @@ $hasil1  = json_decode($data['fasilitas'], true);
 										<?php } ?>
 									</select>
 								</div>
-								<div class="col-sm-2">
+								<div class="col-sm-3">
 									<input type="number" name="inpjumlah[]" class="form-control form-control-sm" id="inpjumlah" value="<?= $hasil1[$i]['jumlah'.$i]; ?>" required="required" />
 								</div>
-								<div class="col-sm-2">
+								<div class="col-sm-3">
 									<input type="text" name="inphasil[]" class="form-control form-control-sm" id="inphasil" value="<?= $hasil1[$i]['hasil'.$i]; ?>" required="required" readonly />
 								</div>
-								<?php if ($hasil1[$i]['fasilitas'.$i] != 'Karyawan' || $hasil1[$i]['fasilitas'.$i] != 'karyawan') { ?>
-								<div class="col-sm-2">
-									<div class="input-group">
-										<div class="custom-file">
-											<input type="file" name="inpgambar[]" class="custom-file-input" multiple="multiple" accept="image/*" />
-											<input type="hidden" name="inpgambar[]" value="<?= $hasil1[$i]['gambar'.$i]; ?>" />
-											<label class="custom-file-label">Choose file</label>
-										</div>
-									</div>
-								</div>
-								<?php } ?>
 							</div>
 							<?php } ?>							
 						<?php } ?>
